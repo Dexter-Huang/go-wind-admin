@@ -43,7 +43,7 @@ server:
       enable_metadata: true
 
   asynq:
-    uri: "redis://:*Abcd123456@redis:6379/1"
+    uri: "redis://:*Abcd123456@localhost:6379/1"
     codec: "json"
     concurrency: 10
     shutdown_timeout: 10s

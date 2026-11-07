@@ -54,12 +54,12 @@ export async function encryptPasswordEnvelope(password: string): Promise<string>
   }
   const der = base64ToBytes(PASSWORD_RSA_PUB_B64).slice().buffer as ArrayBuffer;
   const key = await crypto.subtle.importKey(
-    'raw', der,
+    'spki', der,
     { name: 'RSA-OAEP', hash: 'SHA-256' },
     false, ['encrypt'],
   );
 
-  const aesKey = crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+  const aesKey = crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt']);
   const keyObj = await aesKey;
   const nonce = crypto.getRandomValues(new Uint8Array(12));
   const cipher = await crypto.subtle.encrypt({ name: 'AES-GCM', iv: nonce }, keyObj, new TextEncoder().encode(password));
