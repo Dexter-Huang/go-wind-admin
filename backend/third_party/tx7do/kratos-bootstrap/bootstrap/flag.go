@@ -10,26 +10,29 @@ var (
 
 // CommandFlags 命令传参
 type CommandFlags struct {
-	Conf       string // 引导配置文件路径，默认为：../../configs
-	Env        string // 开发环境：dev、debug……
-	ConfigHost string // 远程配置服务端地址
-	ConfigType string // 远程配置服务端类型
-	Daemon     bool   // 是否转为守护进程
+	Conf         string // 引导配置文件路径，默认为：../../configs
+	ConfigSource string // 配置来源 / Configuration source: local or nacos
+	Env          string // 开发环境：dev、debug……
+	ConfigHost   string // 远程配置服务端地址
+	ConfigType   string // 远程配置服务端类型
+	Daemon       bool   // 是否转为守护进程
 }
 
 func NewCommandFlags() *CommandFlags {
 	return &CommandFlags{
-		Conf:       "../../configs",
-		Env:        "dev",
-		ConfigHost: "127.0.0.1:8500",
-		ConfigType: "consul",
-		Daemon:     false,
+		Conf:         "../../configs",
+		ConfigSource: "local",
+		Env:          "dev",
+		ConfigHost:   "127.0.0.1:8500",
+		ConfigType:   "consul",
+		Daemon:       false,
 	}
 }
 
 // AddFlags 将 flags 绑定到传入的 cobra.Command（通常是 root command）。
 func (f *CommandFlags) AddFlags(cmd *cobra.Command) {
 	cmd.PersistentFlags().StringVarP(&f.Conf, "conf", "c", f.Conf, "config path, eg: -conf ../../configs")
+	cmd.PersistentFlags().StringVar(&f.ConfigSource, "config-source", f.ConfigSource, "configuration source: local or nacos (changes require restart)")
 	cmd.PersistentFlags().StringVarP(&f.Env, "env", "e", f.Env, "runtime environment, eg: -env dev")
 	cmd.PersistentFlags().StringVarP(&f.ConfigHost, "chost", "s", f.ConfigHost, "config server host, eg: -chost 127.0.0.1:8500")
 	cmd.PersistentFlags().StringVarP(&f.ConfigType, "ctype", "t", f.ConfigType, "config server type, eg: -ctype consul")

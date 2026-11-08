@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -19,14 +20,29 @@ func NewFileConfigSource(filePath string) config.Source {
 }
 
 // NewConfigProvider 创建一个配置
-func NewConfigProvider(configPath string) (config.Config, error) {
+func NewConfigProvider(configPath string, sources ...string) (config.Config, error) {
+	source := "local"
+	if len(sources) > 1 {
+		return nil, fmt.Errorf("config: expected one configuration source")
+	}
+	if len(sources) == 1 {
+		source = sources[0]
+	}
+	switch source {
+	case "local":
+		// 本地模式只读本地，不创建远程客户端。 / Local mode never connects remotely.
+		return config.New(config.WithSource(NewFileConfigSource(configPath))), nil
+	case "nacos":
+	default:
+		return nil, fmt.Errorf("config: unsupported source %q (expected local or nacos)", source)
+	}
 	err, rc := LoadRemoteConfigSourceConfigs(configPath)
 	if err != nil {
 		log.Error("LoadRemoteConfigSourceConfigs: ", err.Error())
 		return nil, err
 	}
 
-	if rc != nil {
+	if rc != nil && rc.GetType() == "nacos" && rc.GetNacos() != nil {
 		rcs, err := NewProvider(rc)
 		if err != nil {
 			log.Error("NewProvider: ", err.Error())
@@ -34,22 +50,17 @@ func NewConfigProvider(configPath string) (config.Config, error) {
 		}
 		return config.New(
 			config.WithSource(
-				NewFileConfigSource(configPath),
 				rcs,
 			),
 		), nil
 	}
 
-	return config.New(
-		config.WithSource(
-			NewFileConfigSource(configPath),
-		),
-	), nil
+	return nil, fmt.Errorf("config: nacos mode requires config.type=nacos and config.nacos in %s", filepath.Join(configPath, remoteConfigSourceConfigFile))
 }
 
 // LoadBootstrapConfig 加载程序引导配置
-func LoadBootstrapConfig(configPath string) error {
-	cfg, err := NewConfigProvider(configPath)
+func LoadBootstrapConfig(configPath string, sources ...string) error {
+	cfg, err := NewConfigProvider(configPath, sources...)
 	if err != nil {
 		return err
 	}
@@ -102,11 +113,13 @@ func LoadRemoteConfigSourceConfigs(configPath string) (error, *conf.RemoteConfig
 		return err, nil
 	}
 
-	if err = scanConfigs(cfg); err != nil {
+	// 引导配置独立解析，避免污染业务配置或复用上次加载的全局值。
+	// Decode bootstrap separately to avoid stale global or local business values.
+	var bootstrap conf.Bootstrap
+	if err = cfg.Scan(&bootstrap); err != nil {
 		return err, nil
 	}
-
-	return nil, GetBootstrapConfig().Config
+	return nil, bootstrap.Config
 }
 
 // pathExists 判断路径是否存在

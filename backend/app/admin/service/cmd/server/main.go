@@ -18,7 +18,7 @@ import (
 	//_ "github.com/tx7do/kratos-bootstrap/config/consul"
 	//_ "github.com/tx7do/kratos-bootstrap/config/etcd"
 	//_ "github.com/tx7do/kratos-bootstrap/config/kubernetes"
-	//_ "github.com/tx7do/kratos-bootstrap/config/nacos"
+	_ "github.com/tx7do/kratos-bootstrap/config/nacos"
 	//_ "github.com/tx7do/kratos-bootstrap/config/polaris"
 
 	//_ "github.com/tx7do/kratos-bootstrap/logger/aliyun"

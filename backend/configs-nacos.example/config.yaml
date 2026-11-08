@@ -1,0 +1,16 @@
+# Copy into a private deployment directory and replace credentials/namespace.
+# Start the admin binary with --config-source=nacos --conf <that-directory>.
+config:
+  type: nacos
+  nacos:
+    address: 127.0.0.1
+    port: 8848
+    username: gowind
+    password: REPLACE_AT_DEPLOYMENT
+    namespace_id: go-wind-local
+    group: GO_WIND_ADMIN
+    data_id: admin-service.yaml
+    timeout_ms: 5000
+    log_level: warn
+    cache_dir: ./runtime/nacos/cache
+    log_dir: ./runtime/nacos/log
