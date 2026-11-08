@@ -109,7 +109,7 @@ func initApp(ctx *bootstrap.Context) (*kratos.App, func(), error) {
 	permissionRepo := data.NewPermissionRepo(ctx, entClient, permissionApiRepo, permissionMenuRepo)
 	roleRepo := data.NewRoleRepo(ctx, entClient, rolePermissionRepo, roleOrgUnitRepo, permissionRepo, roleMetadataRepo, roleFieldPermissionRepo)
 	permissionGroupRepo := data.NewPermissionGroupRepo(ctx, entClient)
-	apiRepo := data.NewApiRepo(ctx, entClient)
+	apiRepo := data.NewApiRepo(ctx, entClient, permissionApiRepo)
 	menuRepo := data.NewMenuRepo(ctx, entClient)
 
 	// 审计日志
@@ -153,6 +153,7 @@ func initApp(ctx *bootstrap.Context) (*kratos.App, func(), error) {
 
 	// ── register:repo ── 新模块仓储在此行后注册(make register 工具锚点,勿删)
 	biDashboardRepo := data.NewBiDashboardRepo(ctx, entClient)
+	biDashboardRevisionRepo := data.NewBiDashboardRevisionRepo(ctx, entClient)
 	printTemplateRepo := data.NewPrintTemplateRepo(ctx, entClient)
 	notificationRuleRepo := data.NewNotificationRuleRepo(ctx, entClient)
 	notificationTemplateRepo := data.NewNotificationTemplateRepo(ctx, entClient)
@@ -173,7 +174,7 @@ func initApp(ctx *bootstrap.Context) (*kratos.App, func(), error) {
 	// ═══════════════════════ 三、认证与鉴权 ═══════════════════════
 
 	tenantAccessChecker := data.NewTenantAccessCheckerImpl(ctx, entClient)
-	authorizerProvider := data.NewAuthorizerProvider(ctx, roleRepo, apiRepo)
+	authorizerProvider := data.NewAuthorizerProvider(ctx, roleRepo)
 	var authzEngineCfg *authorizer.EngineConfig
 	if bootstrapConf := ctx.GetConfig(); bootstrapConf != nil && bootstrapConf.Authz != nil {
 		authzEngineCfg = &authorizer.EngineConfig{Type: bootstrapConf.Authz.GetType()}
@@ -309,8 +310,8 @@ func initApp(ctx *bootstrap.Context) (*kratos.App, func(), error) {
 	aiContentService := service.NewAiContentService(ctx, aiProviderRepo, aiUsageLogRepo, menuRepo, roleRepo, userRepo, entClient)
 
 	// ── register:service ── 新模块服务在此行后注册(make register 工具锚点,勿删)
-	biDashboardService := service.NewBiDashboardService(ctx, biDashboardRepo)
-	printTemplateService := service.NewPrintTemplateService(ctx, printTemplateRepo)
+	biDashboardService := service.NewBiDashboardService(ctx, biDashboardRepo, biDashboardRevisionRepo)
+	printTemplateService := service.NewPrintTemplateService(ctx, printTemplateRepo, aiProviderRepo, aiUsageLogRepo)
 	notificationRuleService := service.NewNotificationRuleService(ctx, notificationRuleRepo, notificationChannelRepo, notificationService)
 	accessKeyService := service.NewAccessKeyService(ctx, accessKeyRepo, authenticator, loginRateLimiter)
 	configService := service.NewConfigService(ctx, configRepo)

@@ -177,11 +177,25 @@ dev 策略例外说明：本模块**内核三端同一份**（设计器交互一
 
 ## 7. 差异化能力（M4，按序另立任务）
 
-1. **AI 一句话生成模板**（采 openprint 点子、接本仓 AI 模块）：描述单据要素 → LLM 产出
-   TemplateData → **schema 校验 + 字段白名单校验后**方可保存；走 AI_TOKENS 配额与白名单机制。
-   这是相对竞品（含 worm 上游）的独有卖点，且实现条件本仓优于任何参照仓。
-2. **脚本渲染前钩子**：脚本系统新增 hook 点类型（渲染前数据加工，如 `print_template.render`，
-   可改写 printData）；与实体生命周期钩子并列登记，安全模型不变。
+1. **AI 一句话生成模板**（采 openprint 点子、接本仓 AI 模块）—— **后端 + react 已落地（2026-11-07）**：
+   `POST /admin/v1/print-templates:generate`（`PrintTemplateService.GenerateTemplate`，
+   `print_template_generate.go`）：描述单据要素 → 默认 provider 非流式产出 TemplateData →
+   **护栏校验**（`sanitizeGeneratedTemplate`：payload 512KB / 顶层键白名单 / 元素类型白名单
+   fail-closed——html 类型不在列 / 元素数 200 / 嵌套深度 8 / `{field}` 占位符格式校验 /
+   几何与边距钳制）→ 返回**未入库**，前端确认走既有 Create 保存。复用问数链路四件套：
+   AI_TOKENS 月度配额 / provider 解析与客户端构造 / 用量落库。react 端入口：管理页
+   「AI 生成」按钮 → 弹窗（描述/纸张/方向/资源提示）→ 产物载入设计器（`ai-generate`
+   模式，保存走 Create）。ele/vben 已同批移植（2026-11-07：ele `ai-generate-dialog.vue` +
+   设计器 `ai` 模式 / vben `ai-generate-drawer.vue` + 设计器 `ai` 模式，工具栏入口与 react
+   同构；ele 工具栏自定义按钮走 ProPage `@toolbar` 透传）。护栏单测 `print_template_generate_test.go`。
+2. **脚本渲染前钩子**（`print_template.render`）—— **2026-11-07 挂点分析：当前架构下不成立，需先立输出链 v2**。
+   渲染前改写 printData 的执行位置在浏览器内核 `bindData` 之前，而 printData（行数据）完全在
+   前端（`PrintTemplatePrint.tsx` 的 `renderHtmlPages(payload, printData, …)`），服务端 RenderPdf
+   只收成品 HTML——后端脚本钩子够不着数据。唯一可硬做的位置是"脚本改写成品 HTML"，那既要在
+   `sanitizePrintHTML` 清洗之后执行（等于给脚本开 HTML 注入面直送 Chromium），又没有真实调用方
+   （数据本就来自列表页，前端加工无需脚本）。**成立条件**：批量/服务端渲染演进为"行数据 + 模板
+   code 上送 → 服务端 bindData/generateHtml（内核 Go 移植或 headless 预处理）"的输出链 v2，
+   printData 届时经过后端，钩子才有正确挂点；需求驱动再立项。
 3. **套餐配额**：模板数纳入套餐配额四类体系（若运营上值得）。
 4. 云打印队列 / 多门店远程打印（openprint 点子，仅存目）。
 
