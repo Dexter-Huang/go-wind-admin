@@ -1,0 +1,22 @@
+git tag v0.0.9
+
+git tag javascript/v0.0.8 --force
+git tag lua/v0.0.10 --force
+git tag hostmodule/v0.0.1 --force
+git tag wazero/v0.0.3 --force
+git tag yaegi/v0.0.3 --force
+git tag cel/v0.0.3 --force
+git tag expr/v0.0.3 --force
+git tag gpython/v0.0.3 --force
+git tag starlark/v0.0.3 --force
+git tag tcl/v0.0.3 --force
+
+git tag source/consul/v0.0.3 --force
+git tag source/database/v0.0.1 --force
+git tag source/etcd/v0.0.3 --force
+git tag source/http/v0.0.3 --force
+git tag source/redis/v0.0.3 --force
+git tag source/s3/v0.0.3 --force
+git tag source/git/v0.0.3 --force
+
+git push origin --tags

@@ -35,7 +35,7 @@ plugin:
 	go install github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2@latest
 	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 	go install github.com/envoyproxy/protoc-gen-validate@latest
-	go install github.com/tx7do/go-wind-toolkit/protoc-gen-go-redact@latest
+	go install github.com/tx7do/go-wind-toolkit/protoc-gen-go-redact
 	go install github.com/tx7do/go-wind-toolkit/protoc-gen-typescript-http@latest
 
 # install cli tools

@@ -1,0 +1,380 @@
+[
+  {
+    "module": "github.com/tx7do/go-crud/api",
+    "version": "v0.0.7",
+    "sum": "h1:SDMo1rkQ+Ey9T9vDljaO/Q6Ty3UFiDi3PFJXqKUpcxA=",
+    "directory": "go-crud/api"
+  },
+  {
+    "module": "github.com/tx7do/go-crud/audit",
+    "version": "v0.0.3",
+    "sum": "h1:RkWXjtN0yCSPNoa+87idGPXYVyz/uI+GEuoJkRPrrUI=",
+    "directory": "go-crud/audit"
+  },
+  {
+    "module": "github.com/tx7do/go-crud/cache",
+    "version": "v0.0.2",
+    "sum": "h1:Kcb6laFG3pjKiAHcZGb1+XkMoixjuRR1mLprnJTO1Rw=",
+    "directory": "go-crud/cache"
+  },
+  {
+    "module": "github.com/tx7do/go-crud/entgo",
+    "version": "v0.0.57",
+    "sum": "h1:WZMhR8eSE9b/7qtvvMttJt4r8q6bI4Xkw7nwZTd+Xsc=",
+    "directory": "go-crud/entgo"
+  },
+  {
+    "module": "github.com/tx7do/go-crud/gorm",
+    "version": "v0.0.26",
+    "sum": "h1:uZzN00fxRKma86+VgYb416jxWOhox+RxxWQFN1bOPfQ=",
+    "directory": "go-crud/gorm"
+  },
+  {
+    "module": "github.com/tx7do/go-crud/pagination",
+    "version": "v0.0.16",
+    "sum": "h1:vzj50KnqeZTMjm+bf/hvpTy7X/0+1cQyqUIMKNkt4wo=",
+    "directory": "go-crud/pagination"
+  },
+  {
+    "module": "github.com/tx7do/go-crud/vector",
+    "version": "v0.0.1",
+    "sum": "h1:meoqqTxHeqNxj4unMsUStjx0yuMA+VqwKrgDPjkqbsk=",
+    "directory": "go-crud/vector"
+  },
+  {
+    "module": "github.com/tx7do/go-crud/viewer",
+    "version": "v0.0.8",
+    "sum": "h1:z0/oRsOhvDs41P0Lm5d3KUHVAS9f5ZVzyPQlOi39k8s=",
+    "directory": "go-crud/viewer"
+  },
+  {
+    "module": "github.com/tx7do/go-scripts",
+    "version": "v0.0.9",
+    "sum": "h1:QCLmyGAgj/QKECcLEsqgAwKQy2STNUuGlwk//EZfw9Q=",
+    "directory": "go-scripts"
+  },
+  {
+    "module": "github.com/tx7do/go-scripts/hostmodule",
+    "version": "v0.0.1",
+    "sum": "h1:J9Q5kwlfSsKHuo4CXnNVFRk6beIXe82RVLrzeZaa23E=",
+    "directory": "go-scripts/hostmodule"
+  },
+  {
+    "module": "github.com/tx7do/go-scripts/javascript",
+    "version": "v0.0.10",
+    "sum": "h1:90zplK+5ej/kteTy5gOsyybc92jeAC+W47WKSCRjzqc=",
+    "directory": "go-scripts/javascript"
+  },
+  {
+    "module": "github.com/tx7do/go-scripts/lua",
+    "version": "v0.0.12",
+    "sum": "h1:SDzvyigTIzXg5FAZQ/eZfrZTUhoFA2oy2XOt+5wid1o=",
+    "directory": "go-scripts/lua"
+  },
+  {
+    "module": "github.com/tx7do/go-utils",
+    "version": "v1.1.42",
+    "sum": "h1:/k4bF5B0kQAIO2MwY1e1g19obvJ/anRMjon1uXCW30I=",
+    "directory": "go-utils"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/aggregator",
+    "version": "v0.0.5",
+    "sum": "h1:JId6VIcIR27fMgxvwRPvcY3/9WBGZJKyKvZOdjKNJfc=",
+    "directory": "go-utils/aggregator"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/auditutil",
+    "version": "v0.1.0",
+    "sum": "h1:588cKqt38jGAOcJo589bNPcbWbEYG5tfu7J8kEuypIA=",
+    "directory": "go-utils/auditutil"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/authorizer",
+    "version": "v0.1.0",
+    "sum": "h1:mDiAjPfygJt35KVpCbc7F1Hg3nV+hDXJ/x6+bIt/cJ4=",
+    "directory": "go-utils/authorizer"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/captcha",
+    "version": "v0.0.4",
+    "sum": "h1:Q5kKDNm+mN89uhz6O1f18B6UAI6DWAlJP9icJEHh308=",
+    "directory": "go-utils/captcha"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/converter",
+    "version": "v0.1.0",
+    "sum": "h1:KxWLZNHW+oM5vzUBrK4iNlmYKDWuw65HhWg3hjbvN7M=",
+    "directory": "go-utils/converter"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/copierutil",
+    "version": "v0.0.8",
+    "sum": "h1:zH1qAEuJMO1xrO4A5A3xZllS4o6/E0F5q7xuaHHnRko=",
+    "directory": "go-utils/copierutil"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/crypto",
+    "version": "v0.0.4",
+    "sum": "h1:a6hV3uw3YjjuQ0iw0yh6ksRllZ9XxkmOO2N91ugqn3U=",
+    "directory": "go-utils/crypto"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/doctext",
+    "version": "v0.1.0",
+    "sum": "h1:8jSBW3j5EJoQAnG5PogeovwOX9al1YklgAo1Tegho7k=",
+    "directory": "go-utils/doctext"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/eventbus",
+    "version": "v0.1.0",
+    "sum": "h1:ysEumjqE2zSP0tOQLkkQiNijOei6tX9da8kmMnHPJug=",
+    "directory": "go-utils/eventbus"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/fieldperm",
+    "version": "v0.1.0",
+    "sum": "h1:kXQR+X1slmijDW6TmA+U1rWAqEzYgRllnqd9CUHXhLA=",
+    "directory": "go-utils/fieldperm"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/geoip",
+    "version": "v1.1.8",
+    "sum": "h1:8t5xei9UIlEO4wPDRpgk3ZTOA6CBPc+JyxPr+Bmr77o=",
+    "directory": "go-utils/geoip"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/id",
+    "version": "v0.0.6",
+    "sum": "h1:AFGGf5uxXrclOj//ZCwnkorfLcrhbGqyrVzHG3stuR8=",
+    "directory": "go-utils/id"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/jwtutil",
+    "version": "v0.0.3",
+    "sum": "h1:HaNjYY9NjskvbKlrGli5hPPxoL1JLBOJsOM03WF11Zg=",
+    "directory": "go-utils/jwtutil"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/mailer",
+    "version": "v0.1.1",
+    "sum": "h1:7TkLvJsn033w3qfWU8j/GW8o/W/nZqJDgdIT1kNr2n8=",
+    "directory": "go-utils/mailer"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/mapper",
+    "version": "v0.0.3",
+    "sum": "h1:Z7YoPVsa6I3lfWGSUoa9atujHWeF3kP+yKfS6Rkx5SM=",
+    "directory": "go-utils/mapper"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/netutil",
+    "version": "v0.1.0",
+    "sum": "h1:4td4aoKeTSasO7XSbaPS9DvtsFsTqgWLVS3q6SMtiUM=",
+    "directory": "go-utils/netutil"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/notify",
+    "version": "v0.0.6",
+    "sum": "h1:L9YzFVgfr04RT/EH5XJ8LBqUhpYVWd7Zxoh9AJ4Hxes=",
+    "directory": "go-utils/notify"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/ossutil",
+    "version": "v0.1.0",
+    "sum": "h1:DaE5GBlfJdGlYVY7JvrX01TkPSpsCZYI9Qf+Fn/YaZI=",
+    "directory": "go-utils/ossutil"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/password",
+    "version": "v0.1.0",
+    "sum": "h1:2lV/F/xEgQ1oxzZG7zi4zwcDuLY/6F3JbYrxA4BHlv8=",
+    "directory": "go-utils/password"
+  },
+  {
+    "module": "github.com/tx7do/go-utils/sqlutil",
+    "version": "v0.1.0",
+    "sum": "h1:Z1TEEWzM1lHV++eDXUxaWR2WtVLrMilRI5OZxt9Crl4=",
+    "directory": "go-utils/sqlutil"
+  },
+  {
+    "module": "github.com/tx7do/go-wind",
+    "version": "v0.0.2",
+    "sum": "h1:kuI2QpwGacfROQpugPFWIcrtztv7qwFwQ4ts+LTsq2k=",
+    "directory": "go-wind"
+  },
+  {
+    "module": "github.com/tx7do/go-wind-plugins/ai/openai",
+    "version": "v0.0.1",
+    "sum": "h1:/oMoMWswDWk1t8kTZWVsGrX6zHxmWAySvPBILQuHfAs=",
+    "directory": "go-wind-plugins/ai/openai"
+  },
+  {
+    "module": "github.com/tx7do/go-wind-plugins/encoding",
+    "version": "v0.0.1",
+    "sum": "h1:JAFl2LU5/6VBE8WgZvJjEaAD4BDhstS2nhuUC9GrzM4=",
+    "directory": "go-wind-plugins/encoding"
+  },
+  {
+    "module": "github.com/tx7do/go-wind-plugins/encoding/json",
+    "version": "v0.0.1",
+    "sum": "h1:9TBvf41xmxtvIT5oyX0wLYWfJziSMkq1uQ25mXTMby8=",
+    "directory": "go-wind-plugins/encoding/json"
+  },
+  {
+    "module": "github.com/tx7do/go-wind-toolkit/protoc-gen-go-redact",
+    "version": "v0.0.0-20260831125122-5bb4931991b2",
+    "sum": "h1:ySk000XN3lMJYPRBS12QKHgZkLAxnl68iCpqLKDGSRw=",
+    "directory": "go-wind-toolkit/protoc-gen-go-redact"
+  },
+  {
+    "module": "github.com/tx7do/kratos-authn",
+    "version": "v1.1.11",
+    "sum": "h1:D8MPFjhcnGLf98hMmti89MfCLTMhWne5O9b4N2TKBqc=",
+    "directory": "kratos-authn"
+  },
+  {
+    "module": "github.com/tx7do/kratos-authn/engine/jwt",
+    "version": "v1.1.11",
+    "sum": "h1:/oe8UM1sceyv3OY4SwF2IQAUDN1J2BRAse17jAKf/SM=",
+    "directory": "kratos-authn/engine/jwt"
+  },
+  {
+    "module": "github.com/tx7do/kratos-authz",
+    "version": "v1.1.8",
+    "sum": "h1:cO010t/6A0/YKj0HK/yTyjyG23SAs+HNJJAgGV5j1WI=",
+    "directory": "kratos-authz"
+  },
+  {
+    "module": "github.com/tx7do/kratos-authz/engine/casbin",
+    "version": "v1.1.12",
+    "sum": "h1:p42kLY2sjvQXBgEuM5a2FpTZ5ZnR4oQDA7LyGDkrHa8=",
+    "directory": "kratos-authz/engine/casbin"
+  },
+  {
+    "module": "github.com/tx7do/kratos-authz/engine/opa",
+    "version": "v1.1.15",
+    "sum": "h1:jXvNz5V1znl/jviNHUQDtoMi8kS3NR5Bqv2zRmeELTg=",
+    "directory": "kratos-authz/engine/opa"
+  },
+  {
+    "module": "github.com/tx7do/kratos-authz/middleware",
+    "version": "v1.1.13",
+    "sum": "h1:f0kngtboah2zSnNvhTYxvZhacGLHPpYb+EeRNjPNxH4=",
+    "directory": "kratos-authz/middleware"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/api",
+    "version": "v0.0.45",
+    "sum": "h1:r+SPRi6E6o9m7RibezGRdO598zlnFvYUK4jtAsTGt20=",
+    "directory": "kratos-bootstrap/api"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/bootstrap",
+    "version": "v0.1.17",
+    "sum": "h1:OR6T5ik90XoJJ6uGuVrnl4glkkkmodeqQxyi6nUZOGE=",
+    "directory": "kratos-bootstrap/bootstrap"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/cache/redis",
+    "version": "v0.1.2",
+    "sum": "h1:J/gCUVDYjF+HkVgYYbkvbA312aNycxwh4flnKZjlHnE=",
+    "directory": "kratos-bootstrap/cache/redis"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/config",
+    "version": "v0.2.3",
+    "sum": "h1:u1GqijwAP8MqmvipEaJodDXjAXJUtIxoWwuFMARchpc=",
+    "directory": "kratos-bootstrap/config"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/database/ent",
+    "version": "v0.1.6",
+    "sum": "h1:KTEakqx2NHv5HfAJzqo39HfXRNZnUy8juLOp9eXHC4k=",
+    "directory": "kratos-bootstrap/database/ent"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/logger",
+    "version": "v0.1.3",
+    "sum": "h1:nqKlP9rx6hhRpCMGt4eOvCl/ulWFpiFdguIsN7lFBv8=",
+    "directory": "kratos-bootstrap/logger"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/oss/minio",
+    "version": "v0.1.3",
+    "sum": "h1:C3dNTNHR005wAXY/rGxTo18Tl3djHXfzQ0iS5S4qSaY=",
+    "directory": "kratos-bootstrap/oss/minio"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/registry",
+    "version": "v0.2.3",
+    "sum": "h1:Me74a2teHn++v3NMFB9sgHhVkEasN7iOSyGpIsxP2OY=",
+    "directory": "kratos-bootstrap/registry"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/rpc",
+    "version": "v0.1.4",
+    "sum": "h1:h8+bQQEhsf1Fv5eCbPdJ/UDjo7BSqOWA1DudyKdq+BQ=",
+    "directory": "kratos-bootstrap/rpc"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/tracer",
+    "version": "v0.1.5",
+    "sum": "h1:2cDSLSyZS9lynX2xlq1P6MX0DUeAdvNFmEdLghdyqiM=",
+    "directory": "kratos-bootstrap/tracer"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/transport/asynq",
+    "version": "v0.0.7",
+    "sum": "h1:aB5+3tghb1+/BrJm1/p6OH41PM9A1Hx29tj5Nr4/stU=",
+    "directory": "kratos-bootstrap/transport/asynq"
+  },
+  {
+    "module": "github.com/tx7do/kratos-bootstrap/transport/sse",
+    "version": "v0.0.5",
+    "sum": "h1:gO6zSUecvt4mbHY/bUFng5qosdv6ipVxw8sKqbE4iaM=",
+    "directory": "kratos-bootstrap/transport/sse"
+  },
+  {
+    "module": "github.com/tx7do/kratos-swagger-ui",
+    "version": "v0.0.1",
+    "sum": "h1:hkTsMJZtHQqvqogrrwYyJn46Xj3e26/M+ro4DQxGv0I=",
+    "directory": "kratos-swagger-ui"
+  },
+  {
+    "module": "github.com/tx7do/kratos-transport/broker",
+    "version": "v1.3.3",
+    "sum": "h1:5DodrQf8JW0jHOdnObHLgE1d9wLziv5qKUtsD4cTzXU=",
+    "directory": "kratos-transport/broker"
+  },
+  {
+    "module": "github.com/tx7do/kratos-transport/tracing",
+    "version": "v1.1.2",
+    "sum": "h1:sF1TdLhhzJqB5CcCKjG12hkKYEcw0vReUWBoyFYj5jQ=",
+    "directory": "kratos-transport/tracing"
+  },
+  {
+    "module": "github.com/tx7do/kratos-transport/transport",
+    "version": "v1.3.4",
+    "sum": "h1:6eKWtpFzRYgUx9E91N1X3IbEvYbhRuqb9ZQiqWDhos8=",
+    "directory": "kratos-transport/transport"
+  },
+  {
+    "module": "github.com/tx7do/kratos-transport/transport/asynq",
+    "version": "v1.3.14",
+    "sum": "h1:NBnh9Nm8qVJI1AoALCLakoVTvvzu/hqZnII6QsoWX1g=",
+    "directory": "kratos-transport/transport/asynq"
+  },
+  {
+    "module": "github.com/tx7do/kratos-transport/transport/keepalive",
+    "version": "v1.3.5",
+    "sum": "h1:p1B1jpGN3SqoTrrrSmgsvv5RC/NvCHVbB970u7OTdKQ=",
+    "directory": "kratos-transport/transport/keepalive"
+  },
+  {
+    "module": "github.com/tx7do/kratos-transport/transport/sse",
+    "version": "v1.3.8",
+    "sum": "h1:w38AlSYjfQnCvrpZbH6X13Rv0pB1c9qMk7sqkT5gHqE=",
+    "directory": "kratos-transport/transport/sse"
+  }
+]
