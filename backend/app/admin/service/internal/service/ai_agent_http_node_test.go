@@ -1,7 +1,8 @@
 package service
 
 import (
-	"strings"
+	"errors"
+	"net"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -99,9 +100,34 @@ func TestValidateAgentOutboundURL(t *testing.T) {
 
 	t.Run("无 host / 解析失败拒绝", func(t *testing.T) {
 		require.Error(t, validateAgentOutboundURL("not-a-url"))
-		err := validateAgentOutboundURL("http://this-host-does-not-exist.invalid/x")
+		err := validateAgentOutboundURLWithLookup("https://example.com/x", func(string) ([]net.IP, error) {
+			return nil, errors.New("DNS unavailable")
+		})
 		require.Error(t, err)
-		assert.True(t, strings.Contains(err.Error(), "resolve") || strings.Contains(err.Error(), "blocked"),
-			"解析失败或被阻断均算 fail-closed，实际: %v", err)
+		assert.Contains(t, err.Error(), "cannot resolve")
+	})
+
+	t.Run("DNS结果逐一检查", func(t *testing.T) {
+		for _, tc := range []struct {
+			name    string
+			ips     []net.IP
+			blocked bool
+		}{
+			{"空结果", nil, true},
+			{"公网地址", []net.IP{net.ParseIP("8.8.8.8")}, false},
+			{"混合私网地址", []net.IP{net.ParseIP("8.8.8.8"), net.ParseIP("10.0.0.1")}, true},
+		} {
+			t.Run(tc.name, func(t *testing.T) {
+				err := validateAgentOutboundURLWithLookup("https://example.com/x", func(host string) ([]net.IP, error) {
+					assert.Equal(t, "example.com", host)
+					return tc.ips, nil
+				})
+				if tc.blocked {
+					require.Error(t, err)
+				} else {
+					require.NoError(t, err)
+				}
+			})
+		}
 	})
 }

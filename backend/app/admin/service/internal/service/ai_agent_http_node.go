@@ -171,6 +171,11 @@ func runAgentHTTPNode(ctx context.Context, node *agentGraphNode, vars map[string
 
 // validateAgentOutboundURL http 节点出站 URL 校验（fail-closed）。
 func validateAgentOutboundURL(raw string) error {
+	return validateAgentOutboundURLWithLookup(raw, net.LookupIP)
+}
+
+// 注入 DNS 查询以便确定性验证失败关闭行为。 / Inject DNS lookup for deterministic fail-closed tests.
+func validateAgentOutboundURLWithLookup(raw string, lookupIP func(string) ([]net.IP, error)) error {
 	u, err := url.Parse(raw)
 	if err != nil || u.Host == "" {
 		return fmt.Errorf("invalid outbound url %q", raw)
@@ -184,7 +189,7 @@ func validateAgentOutboundURL(raw string) error {
 		return fmt.Errorf("blocked outbound host %q (private/loopback/metadata)", host)
 	}
 	if net.ParseIP(host) == nil {
-		ips, lerr := net.LookupIP(host)
+		ips, lerr := lookupIP(host)
 		if lerr != nil || len(ips) == 0 {
 			return fmt.Errorf("cannot resolve outbound host %q", host)
 		}

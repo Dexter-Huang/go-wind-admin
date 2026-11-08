@@ -155,6 +155,7 @@ dev 策略例外说明：本模块**内核三端同一份**（设计器交互一
 - **端点**：`POST /admin/v1/print-templates:render-pdf`（PrintTemplateService.RenderPdf）。
   请求 `{html, filename, paperWidthMm, paperHeightMm, landscape, background}`；响应 `{pdf(bytes=base64),
   filename}`。HTML 上限 8 MiB；纸张毫米必须传。**批量** = 前端把多行渲染合并为单个 HTML 一次调用。
+- **Windows Edge 启动**：渲染器为 `msedge.exe` 自动设置 `edge-skip-compat-layer-relaunch`，避免兼容层重启导致 chromedp 调试管道断开（表现为 `chrome failed to start`）。Chrome 与 Linux 的启动参数不受影响。
 - **部署要求**：后端所在机器/镜像需 Chrome 或 Edge（含 CJK 字体集）；无浏览器时接口报
   `render pdf failed`（日志含原因）。打印服务无网络需求（启动 flag 已收窄攻击面）。
 - **安全边界**：HTML 来自已鉴权的管理端（权限点走 Api 表闸门），内容经内核 dompurify 消毒；

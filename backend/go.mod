@@ -1,6 +1,6 @@
 module go-wind-admin
 
-go 1.26.4
+go 1.27.3
 
 require (
 	entgo.io/ent v0.14.6

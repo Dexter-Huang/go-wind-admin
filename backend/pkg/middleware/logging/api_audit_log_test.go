@@ -21,6 +21,7 @@ import (
 	"crypto/ecdsa"
 	"crypto/sha256"
 	"encoding/json"
+	"net"
 	nethttp "net/http"
 	"testing"
 
@@ -32,6 +33,7 @@ import (
 
 	adminV1 "go-wind-admin/api/gen/go/admin/service/v1"
 	auditV1 "go-wind-admin/api/gen/go/audit/service/v1"
+	"go-wind-admin/pkg/netutil"
 )
 
 const (
@@ -181,7 +183,7 @@ func TestApiAuditLogHandleErrorStatusMapping(t *testing.T) {
 // TestApiAuditLogHandleInputSanitization 验证异常输入的清洗行为：
 // 非法 Referer 转义序列 → 空串；非 Bearer 令牌 → 解析失败、身份字段为零值；
 // 无请求 ID 头 → 生成 GUID 而非空串（保证可追踪性）；
-// X-Forwarded-For 跳过不可解析项取首个合法 IP（且优先于 RemoteAddr）。
+// X-Forwarded-For 仅信任已配置的代理，直连来源的伪造头应被忽略。
 func TestApiAuditLogHandleInputSanitization(t *testing.T) {
 	t.Run("非法Referer转义", func(t *testing.T) {
 		env := newAuditServer(t)
@@ -246,7 +248,9 @@ func TestApiAuditLogHandleInputSanitization(t *testing.T) {
 		assert.Empty(t, rec.GetUsername())
 	})
 
-	t.Run("XFF跳过非法项取首个合法IP", func(t *testing.T) {
+	t.Run("不信任直连来源的XFF", func(t *testing.T) {
+		netutil.SetTrustedProxies(nil)
+		t.Cleanup(func() { netutil.SetTrustedProxies(nil) })
 		env := newAuditServer(t)
 		env.fire(nethttp.MethodPost, "/case/5", map[string]string{
 			"X-Test-Operation": "/demo.v1.GadgetService/Update",
@@ -254,8 +258,22 @@ func TestApiAuditLogHandleInputSanitization(t *testing.T) {
 		}, "", "8.8.8.8:1234")
 		require.Len(t, env.capture.api, 1)
 		rec := env.capture.api[0]
-		assert.Equal(t, "10.0.0.5", rec.GetIpAddress(), "XFF 中首个可解析 IP 优先于 RemoteAddr")
-		assert.Equal(t, "局域网", rec.GetGeoLocation().GetCountryCode(), "私网 IP 的地理归一")
+		assert.Equal(t, "8.8.8.8", rec.GetIpAddress(), "未配置可信代理时忽略伪造 XFF")
+	})
+	t.Run("可信代理的XFF取客户端IP", func(t *testing.T) {
+		_, cidr, err := net.ParseCIDR("192.168.0.0/16")
+		require.NoError(t, err)
+		netutil.SetTrustedProxies([]*net.IPNet{cidr})
+		t.Cleanup(func() { netutil.SetTrustedProxies(nil) })
+		env := newAuditServer(t)
+		env.fire(nethttp.MethodPost, "/case/5", map[string]string{
+			"X-Test-Operation": "/demo.v1.GadgetService/Update",
+			"X-Forwarded-For":  "garbage, 10.0.0.5",
+		}, "", "192.168.1.1:1234")
+		require.Len(t, env.capture.api, 1)
+		rec := env.capture.api[0]
+		assert.Equal(t, "10.0.0.5", rec.GetIpAddress())
+		assert.Equal(t, "局域网", rec.GetGeoLocation().GetCountryCode())
 	})
 }
 

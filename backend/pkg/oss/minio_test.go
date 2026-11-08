@@ -1,12 +1,14 @@
 package oss
 
 import (
+	"context"
 	"fmt"
-	"net"
 	"os"
+	"sync"
 	"testing"
 	"time"
 
+	"github.com/minio/minio-go/v7"
 	"github.com/stretchr/testify/assert"
 	"github.com/tx7do/go-utils/trans"
 	bLogger "github.com/tx7do/kratos-bootstrap/logger"
@@ -65,16 +67,31 @@ func createTestClient() *MinIOClient {
 	}, bLogger.NopLogger())
 }
 
-// minioAvailable 探测测试端点上的 MinIO 是否可达：环境依赖测试依赖真实 MinIO 服务，
-// 无环境时 skip 而非失败——环境依赖测试不应拖红常规回归。
+// 显式端点必须实测，连接或鉴权失败不能变成 skip。 / Explicit endpoints must fail on errors.
 func minioAvailable() bool {
-	conn, err := net.DialTimeout("tcp", minioTestEndpoint(), 500*time.Millisecond)
-	if err != nil {
-		return false
+	if os.Getenv("MINIO_TEST_ENDPOINT") != "" {
+		return true
 	}
-	conn.Close()
-	return true
+	return defaultMinioAvailable()
 }
+
+// 默认端点需完成 S3 请求，不能把空转发端口当作服务。 / Probe S3, not just TCP.
+var defaultMinioAvailable = sync.OnceValue(func() bool {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	_, err := createTestClient().GetClient().ListBuckets(ctx)
+	if err == nil {
+		return true
+	}
+	// S3 明确返回鉴权错误时仍运行测试，保留错误配置的失败信号。
+	// Preserve failures when the S3 service rejects credentials.
+	switch minio.ToErrorResponse(err).Code {
+	case "AccessDenied", "InvalidAccessKeyId", "SignatureDoesNotMatch":
+		return true
+	}
+	fmt.Fprintf(os.Stderr, "default S3 test endpoint unavailable: %v (set MINIO_TEST_ENDPOINT to require live tests)\n", err)
+	return false
+})
 
 func TestMinIoClient(t *testing.T) {
 	if !minioAvailable() {

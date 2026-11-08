@@ -14,7 +14,7 @@
 
 | 工具 | 版本 | 用途 |
 |---|---|---|
-| Go | 以 `backend/go.mod` 为准（当前钉 `1.26.4`） | 后端 |
+| Go | 以 `backend/go.mod` 为准（当前钉 `1.27.3`） | 后端 |
 | Docker Desktop | 最新 | 中间件容器 |
 | Node.js | 以各前端 `package.json` 的 `engines` 为准（react 未声明；交集为 `^20.19.0 \|\| >=22.12.0`，即 21.x 不满足） | 前端 |
 | pnpm | 仅 vue-vben 由其 `packageManager` 钉死 `pnpm@11.18.0`；react / vue-element 未钉定 | 前端包管理 |

@@ -16,7 +16,9 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
+	"strings"
 	"sync"
 	"time"
 
@@ -125,6 +127,10 @@ func (c *ChromeRenderer) allocator(ctx context.Context) (context.Context, contex
 		chromedp.Flag("no-first-run", true),
 		chromedp.Flag("no-default-browser-check", true),
 	)
+	// Windows Edge 兼容层重启会断开调试管道。 / Keep Edge's debug pipe across startup.
+	if runtime.GOOS == "windows" && strings.EqualFold(filepath.Base(path), "msedge.exe") {
+		opts = append(opts, chromedp.Flag("edge-skip-compat-layer-relaunch", true))
+	}
 	// Linux 容器常以 root 运行：Chrome 无 --no-sandbox 时直接拒启
 	// （"Running as root without --no-sandbox is not supported"）。
 	// PRINTRENDER_NO_SANDBOX=0 可强制关闭该行为。

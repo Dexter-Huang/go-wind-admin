@@ -15,7 +15,7 @@
 
 | 软件 | 版本要求 | 用途 |
 |------|---------|------|
-| Go | 1.26+（`backend/go.mod` 当前钉 `go 1.26.4`，低于该版本无法构建） | 后端编译运行 |
+| Go | 1.27.3+（`backend/go.mod` 当前钉 `go 1.27.3`，低于该版本无法构建） | 后端编译运行 |
 | Docker Desktop | 最新版 | 运行 PostgreSQL、Redis、SeaweedFS（对象存储） |
 | Node.js | 以各前端 `package.json` 的 `engines` 为准：react **未声明** engines，vue-element `^20.19.0 \|\| >=22.12.0`，vue-vben `>=20.11.0`（另要求 pnpm `>=9.12.0`）——三端同时满足即取 vue-element 的约束 `^20.19.0 \|\| >=22.12.0`（21.x 不在内） | 前端编译运行 |
 | pnpm | 仅 vue-vben 钉定（其 `packageManager` 字段为 `pnpm@11.18.0`，corepack 自动路由）；react / vue-element 未钉定版本 | Vue 前端包管理 |
@@ -289,6 +289,8 @@ pnpm dev
 ---
 
 ## 日常开发工作流
+
+后端回归在 `backend/` 执行 `go test ./...`。对象存储实测可设置 `MINIO_TEST_ENDPOINT`、`MINIO_TEST_ACCESS_KEY`、`MINIO_TEST_SECRET_KEY` 指向可用的 S3 服务；显式设置端点后，连接或鉴权失败会导致测试失败。未设置端点时仅探测默认 `127.0.0.1:9000`，无法完成 S3 请求则跳过这些环境依赖测试（仅 TCP 端口开放不算服务就绪）。
 
 ```
 终端 1：cd backend && docker compose -f docker-compose.libs.yaml up -d
